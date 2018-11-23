@@ -40,14 +40,13 @@ public class Main {
 			while(true)
 			{
 				fb = utils.configFacebook(props);
-				System.out.println(fb);
+				//System.out.println(fb);
 				System.out.println("Cliente Facebook\n");
 				System.out.println("1.- NewsFeed");
 				System.out.println("2.- Wall");
 				System.out.println("3.- Enviar Status");
 				System.out.println("4.- Enviar Url");
-				System.out.println("5.- Configurar");
-				System.out.println("6.- Salir");
+				System.out.println("5.- Salir");
 				System.out.println("Seleccione una opción:");
 
 				try {
@@ -80,11 +79,13 @@ public class Main {
 						break;
 					case "3":
 						System.out.println("-Enviar Status");
+						System.out.print("\n-Indique el status: ");
 						String estado = scanner.nextLine();
 						utils.postStatus(estado, fb);
 						break;
 					case "4":
 						System.out.println("Enviar Url");
+						System.out.print("\n-Indique el URL: ");
 						String link = scanner.nextLine();
 						utils.postLink(link, fb);
 						break;
@@ -120,34 +121,19 @@ public class Main {
 
 	public static void Save_Facebook(String fileName, ResponseList<Post> posts, Scanner scanner)
 	{
-		System.out.println("¿Quieres guardar el resultado en un archivo txt?");
+		System.out.println("\n¿Quieres guardar el resultado en un archivo txt?(S/N)");
 		String seleccion= scanner.nextLine();
-		if ("si".contains(seleccion.toLowerCase()))
+		if ("s".contains(seleccion.toLowerCase()))
 		{	List<Post> post = new ArrayList<>();
-			int num = 0;
-			while(num <= 0)
+			try
 			{
-				try
+				for(int i = 0; i < posts.size(); i++)
 				{
-				System.out.println("¿Cuantas lineas quieres guaradar?");
-				num = Integer.parseInt(scanner.nextLine());
-				if(num <= 0)
-				{
-					System.out.println("Ingrese un numero valido!!!!!");
+					post.add(posts.get(i));
 				}
-				else
-				{
-					for(int i = 0; i<num; i++)
-					{
-						if(i>posts.size()-1) break;
-						post.add(posts.get(i));
-						}
-					}
-				}
-				catch(NumberFormatException e)
-				{
-					logger.error(e);
-				}
+			}catch(NumberFormatException e)
+			{
+				logger.error(e);
 			}
 			//utils.Save_Post(fileName, post);
 		}

@@ -28,7 +28,7 @@ public class utils {
 		Properties props = new Properties();
 		Path configFile = Paths.get(folderName, fileName);
 
-		System.out.println("Path config: " + configFile);
+		//System.out.println("Path config: " + configFile);
 		props.load(Files.newInputStream(configFile));
 
 		BiConsumer<Object, Object> emptyProperty = (k, v) -> {
